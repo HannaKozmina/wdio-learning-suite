@@ -20,7 +20,7 @@ class SignUpPage {
     return $("#user_signup\\[marketing_consent\\]");
   }
   get createAccountButton() {
-    return $('button[data-target="signup-form.SignupButton"]');
+    return $('#signup-form > form > div:nth-child(7)');
   }
 
   async acceptCookiesIfVisible() {
@@ -71,9 +71,7 @@ class SignUpPage {
     await this.createAccountButton.waitForDisplayed({ timeout: 5000 });
     await this.createAccountButton.scrollIntoView();
     await browser.pause(300);
-    //await this.createAccountButton.click(); не получается сделать клик никак 
-    //await browser.execute(el => el.click(), await this.createAccountButton);
-
+    await this.createAccountButton.click(); 
   }
 }
 

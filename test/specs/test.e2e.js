@@ -22,8 +22,6 @@ describe("github.com", () => {
 
         await SignUpPage.clickCreateAccount();
 
-        
-
         await browser.pause(4000);
     })
 });
