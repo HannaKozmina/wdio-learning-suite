@@ -1,58 +1,29 @@
 import MainPage from "./../pages/main.page.js";
-import DefTechPage from "../pages/deftech.page.js";
-import AddEventDefTechPage from "./../pages/addEventDeftech.page.js";
-import JobsPage from "./../pages/jobs.page.js";
-import SalariesPage from "./../pages/salaries.page.js";
-import CommunityPage from "./../pages/community.page.js";
+import SignUpPage from "./../pages/signup.page.js";
 
-describe("dou.ua", () => {
-  xit("done", async () => {
-    await browser.url("https://dou.ua");
+describe("github.com", () => {
+  
+    it("SignUp", async () => {
+        await browser.url('https://github.com');
 
-    await MainPage.clickOnBandBtn();
-    await browser.pause(2000);
+        await MainPage.clickOnSignUpBtn();
 
-    await MainPage.clickOnForumBtn();
-    await browser.pause(2000);
+        await SignUpPage.acceptCookiesIfVisible();
 
-    await MainPage.clickOnDefTechBtn();
-    await browser.pause(2000);
+        await SignUpPage.verifyWelcomeText();
 
-    await DefTechPage.clickOnAddEventBtn();
+        await SignUpPage.enterEmail();
 
-    expect(AddEventDefTechPage.head).toHaveValue("Нова подія");
-  });
+        await SignUpPage.enterPassword();
 
-  xit("Salaries", async () => {
-    await browser.url("https://dou.ua");
+        await SignUpPage.enterUsername();
 
-    await MainPage.clickOnSalariesBtn();
-    await browser.pause(2000);
+        await SignUpPage.checkMarketingConsent();
 
-    await SalariesPage.isKvart1LblDisplayed();
-  });
+        await SignUpPage.clickCreateAccount();
 
-  xit("Jobs", async () => {
-    await browser.url("https://dou.ua");
+        
 
-    await MainPage.clickOnJobsBtn();
-    await browser.pause(2000);
-
-    await JobsPage.clickOnSearchBtn();
-    await browser.pause(2000);
-
-    await JobsPage.isQuickAccessDisplayed();
-  });
-
-  it("Community", async () => {
-    await browser.url("https://dou.ua");
-
-    await MainPage.clickOnCommunityBtn();
-    await browser.pause(2000);
-
-    await CommunityPage.isGameDevCommuntityDisplayed();
-    await CommunityPage.isFrontEndCommunityDisplayed();
-    await CommunityPage.isDevOpsCommunityDisplayed();
-    await CommunityPage.isQACommunityDisplayed();
-  });
+        await browser.pause(4000);
+    })
 });
