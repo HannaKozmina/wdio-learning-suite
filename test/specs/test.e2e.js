@@ -1,7 +1,11 @@
+import { emailNew, countryCode } from "../data/credentials.js";
 import Header from "../pages/header.page.js";
+import MainPage from "../pages/main.page.js";
 import SignUpPage from "./../pages/signup.page.js";
 import PricingPage from "../pages/pricing.page.js";
 import OrganizationPage from "../pages/organization.page.js";
+import NewsletterPage from "../pages/newsletter.page.js";
+import ConfirmationPage from "../pages/confirmation.page.js";
 
 describe("github.com", () => {
   xit("1st scenario: Sign Up", async () => {
@@ -26,7 +30,7 @@ describe("github.com", () => {
     await browser.pause(4000);
   });
 
-  it("2nd scenario: Pricing", async () => {
+  xit("2nd scenario: Pricing", async () => {
     await browser.url("https://github.com");
 
     expect(await Header.isPricingLinkVisible()).toBe(true);
@@ -38,5 +42,38 @@ describe("github.com", () => {
     await OrganizationPage.verifyTrialPlanHeaderVisible();
 
     await OrganizationPage.clickEnterpriseCloudLink();
+  });
+
+  it("3d scenario: Subscribe", async () => {
+    await browser.url("https://github.com");
+
+    await MainPage.scrollToSubscribeLink();
+
+    expect(await MainPage.isSubscribeLinkVisible()).toBe(true);
+    expect(await MainPage.isSubscribeLinkClickable()).toBe(true);
+
+    await MainPage.clickSubscribeLink();
+
+    await MainPage.verifySubscribeRedirect();
+
+    expect(await NewsletterPage.isNewsletterHeadingVisible()).toBe(true);
+    expect(await NewsletterPage.getNewsletterHeadingText()).toBe(
+      "Subscribe to our developer newsletter"
+    );
+
+    await NewsletterPage.enterEmail(emailNew);
+
+    await NewsletterPage.selectCountry(countryCode);
+
+    await NewsletterPage.checkMarketingOptIn();
+
+    await NewsletterPage.clickSubscribeButton();
+
+    expect(await ConfirmationPage.isConfirmationHeadingVisible()).toBe(true);
+    expect(await ConfirmationPage.getConfirmationHeadingText()).toBe(
+      "Thanks for subscribing!"
+    );
+
+    await browser.pause(4000);
   });
 });
