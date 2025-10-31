@@ -52,6 +52,7 @@ class Header {
     const text = await result.getText();
     return text.includes("act");
   }
+  
 }
 
 export default new Header();

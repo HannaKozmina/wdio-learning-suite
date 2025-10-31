@@ -6,9 +6,10 @@ import PricingPage from "../pages/pricing.page.js";
 import OrganizationPage from "../pages/organization.page.js";
 import NewsletterPage from "../pages/newsletter.page.js";
 import ConfirmationPage from "../pages/confirmation.page.js";
+import PricingCompareFeaturesPage from "../pages/pricingcomparefeatures.page.js";
 
 describe("github.com", () => {
-  xit("1st scenario: Sign Up", async () => {
+  it("1st scenario: Sign Up", async () => {
     await browser.url("https://github.com");
 
     await Header.clickOnSignUpBtn();
@@ -30,7 +31,7 @@ describe("github.com", () => {
     await browser.pause(4000);
   });
 
-  xit("2nd scenario: Pricing", async () => {
+  it("2nd scenario: Pricing", async () => {
     await browser.url("https://github.com");
 
     expect(await Header.isPricingLinkVisible()).toBe(true);
@@ -44,7 +45,7 @@ describe("github.com", () => {
     await OrganizationPage.clickEnterpriseCloudLink();
   });
 
-  xit("3d scenario: Subscribe", async () => {
+  it("3d scenario: Subscribe", async () => {
     await browser.url("https://github.com");
 
     await MainPage.scrollToSubscribeLink();
@@ -90,5 +91,20 @@ describe("github.com", () => {
 
     expect(await Header.hasSpecificResult()).toBe(true);
     await browser.pause(4000);
+  });
+
+  it("5th scenario: compare features", async () => {
+    await browser.url("https://github.com");
+
+    await Header.clickPricingLink();
+
+    await PricingPage.scrollToCompareFeatures();
+    await PricingPage.compareFeaturesLink.click();
+
+    await PricingCompareFeaturesPage.scrollToCompareFeaturesTitle();
+    const isVisible = await PricingCompareFeaturesPage.compareFeaturesTitle.isDisplayed();
+    expect(isVisible).toBe(true);
+
   })
+
 });
