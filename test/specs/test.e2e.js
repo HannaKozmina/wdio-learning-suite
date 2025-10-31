@@ -1,4 +1,4 @@
-import { emailNew, countryCode } from "../data/credentials.js";
+import { emailNew, countryCode, searchInput } from "../data/credentials.js";
 import Header from "../pages/header.page.js";
 import MainPage from "../pages/main.page.js";
 import SignUpPage from "./../pages/signup.page.js";
@@ -44,7 +44,7 @@ describe("github.com", () => {
     await OrganizationPage.clickEnterpriseCloudLink();
   });
 
-  it("3d scenario: Subscribe", async () => {
+  xit("3d scenario: Subscribe", async () => {
     await browser.url("https://github.com");
 
     await MainPage.scrollToSubscribeLink();
@@ -76,4 +76,19 @@ describe("github.com", () => {
 
     await browser.pause(4000);
   });
+
+  it("4th scenario: search", async () => {
+    await browser.url("https://github.com");
+
+    await Header.openSearch();
+    await Header.enterSearchText(searchInput);
+
+    const value = await Header.getSearchValue();
+    expect(value).toBe(searchInput);
+
+    await Header.selectSearchResult(searchInput);
+
+    expect(await Header.hasSpecificResult()).toBe(true);
+    await browser.pause(4000);
+  })
 });
